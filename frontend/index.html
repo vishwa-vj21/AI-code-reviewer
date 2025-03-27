@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Code Reviewer</title>
+</head>
+<body>
+    <h1>Paste Your Python Code</h1>
+    <textarea id="code" rows="10" cols="50"></textarea>
+    <button onclick="submitCode()">Analyze</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function submitCode() {
+            const code = document.getElementById("code").value;
+            const response = await fetch("http://127.0.0.1:8000/analyze", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({code: code})
+            });
+            const result = await response.json();
+            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
